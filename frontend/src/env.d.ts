@@ -24,3 +24,14 @@ declare module '*.jpg' {
   const src: string;
   export default src;
 }
+
+/// <reference types="vite/client" />
+
+interface ImportMetaEnv {
+  readonly VITE_MAIN_API_URL: string;
+    readonly VITE_BOT_API_URL: ImportMetaEnv;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}

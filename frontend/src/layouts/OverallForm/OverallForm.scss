@@ -33,7 +33,7 @@
   &__title {
     font-size: 24px;
     font-weight: 600;
-    margin-bottom: 24px;
+    margin-bottom: 8px;
     background: linear-gradient(135deg, var(--color-black) 30%, var(--color-purple));
     @include gradient-text;
     @include mobile {
@@ -48,6 +48,17 @@
     }
   }
 
+  &__progress {
+    font-size: 13px;
+    color: var(--color-gray);
+    margin-bottom: 20px;
+    transition: color var(--transition-duration);
+
+    html.is-dark-theme & {
+      color: var(--color-accent);
+    }
+  }
+
   &__wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -55,8 +66,38 @@
     width: 90%;
     max-width: 100%;
     padding: 10px;
+  }
 
-    > *:last-child { grid-column: 1 / -1; }
+  &__field {
+    position: relative;
+    min-width: 0;
+
+    &--full {
+      grid-column: 1 / -1;
+    }
+
+    // Раньше CountrySelect в одиночку "провисал" в сетке 1fr 1fr (5 элементов
+    // без явного full-width на нечётном последнем создавали пустую ячейку) —
+    // теперь country и message явно на всю ширину, сетка выглядит целиком
+    // независимо от того, сколько строк добавится в будущем.
+    &--icon .field__input,
+    &--icon .field__select {
+      padding-left: 40px;
+    }
+  }
+
+  &__field-icon {
+    position: absolute;
+    left: 14px;
+    top: 42px;
+    color: var(--color-gray);
+    pointer-events: none;
+    transition: color var(--transition-duration);
+    z-index: 1;
+
+    html.is-dark-theme & {
+      color: var(--color-accent);
+    }
   }
 
   &__error {
@@ -84,6 +125,17 @@
   transition: transform .15s, filter .15s, background .3s;
   position: relative;
   overflow: hidden;
+  margin-top: 20px;
+
+  &__content {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__spinner {
+    animation: submit-spin 0.8s linear infinite;
+  }
 
   @include hover {
     filter: brightness(1.15);
@@ -113,4 +165,9 @@
     transform: none;
     box-shadow: none;
   }
+}
+
+@keyframes submit-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }

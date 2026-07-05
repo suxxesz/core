@@ -147,11 +147,7 @@ const useForm = () => {
         country: fields.country.value,
         message: fields.message.value,
       })
-      const response = await sendMessage(fields)
-
-      if(!response.ok) {
-       console.log('Something was occured while sending data' , response)
-      }
+      await sendMessage(fields)
 
       setSubmitStatus('success')
       setToast({ type: 'success', text: 'Message sent! I\'ll get back to you soon.' })

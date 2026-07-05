@@ -1,4 +1,3 @@
-// src/plugins/bootstrap.js
 import fastifyCors from '@fastify/cors'
 import applicationsRouter from '../routes/application.js'
 import { client, lastSeenMap } from '../discord/bot.js'
@@ -9,7 +8,9 @@ import { client, lastSeenMap } from '../discord/bot.js'
  * @param {Object} opts 
  */
 async function addBootstrap(fastify, opts) {
-  await fastify.register(fastifyCors)
+  await fastify.register(fastifyCors, {
+    origin: process.env.FRONTEND_ORIGIN ?? true,
+  })
   
   await fastify.register(applicationsRouter, { prefix: '/applications' })
 

@@ -1,8 +1,17 @@
-import Fastify from 'fastify'
-import fastifyEnv from '@fastify/env'
-import { client } from './src/discord/bot.js' 
-import addBootstrap from './src/plugins/bootstrap.js' 
-import { Type } from '@sinclair/typebox'
+  import Fastify from 'fastify'
+  import fastifyEnv from '@fastify/env'
+  import { client } from './src/discord/bot.js'
+  import addBootstrap from './src/plugins/bootstrap.js'
+  import { Type } from '@sinclair/typebox'
+  import { fileURLToPath } from 'node:url'
+  import path from 'node:path'
+
+// dotenv: true раньше искал .env через process.cwd() — работает, пока
+// сервис всегда стартуют через `npm start` (npm сам ставит CWD в корень
+// пакета). Абсолютный путь ниже не зависит от того, как именно запущен
+// процесс — та же защита, что и в server/bot/start.js.
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const ENV_PATH = path.resolve(__dirname, '../.env')
 
 const serverOptions = {
   logger: {
@@ -23,7 +32,7 @@ const schema = Type.Object({
 
 await app.register(fastifyEnv, {
   schema: schema,
-  dotenv: true,
+  dotenv: { path: ENV_PATH },
   data: process.env
 })
 
@@ -43,3 +52,13 @@ async function start() {
 }
 
 start()
+
+const shutdown = async (signal) => {
+  app.log.info({ signal }, 'Shutting down main service')
+  client.destroy()
+  await app.close()
+  process.exit(0)
+}
+
+process.on('SIGINT', () => shutdown('SIGINT'))
+process.on('SIGTERM', () => shutdown('SIGTERM'))

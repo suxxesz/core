@@ -28,3 +28,17 @@ export function removeSession(id) {
 export function getAllSessions() {
     return [...sessions.values()];
 }
+
+export function pruneExpiredSessions(maxAgeMs) {
+    const now = Date.now();
+    let removed = 0;
+
+    for (const [id, session] of sessions) {
+        if (now - session.createdAt > maxAgeMs) {
+            sessions.delete(id);
+            removed++;
+        }
+    }
+
+    return removed;
+}
