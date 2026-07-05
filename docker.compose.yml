@@ -1,0 +1,40 @@
+services:
+  backend-main:
+    build: ./backend
+    command: ["node", "server/server.js"]
+    env_file: ./backend/.env
+    environment:
+      - DB_PATH=/app/server/data/data.db
+    volumes:
+      - db-data:/app/server/data
+    restart: unless-stopped
+
+  backend-bot:
+    build: ./backend
+    command: ["node", "server/bot/start.js"]
+    env_file: ./backend/.env
+    restart: unless-stopped
+
+  caddy:
+    build:
+      context: ./frontend
+      args:
+        VITE_MAIN_API_URL: ""
+        VITE_BOT_API_URL: ""
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - DOMAIN=${DOMAIN:-localhost}
+    volumes:
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - backend-main
+      - backend-bot
+    restart: unless-stopped
+
+volumes:
+  db-data:
+  caddy-data:
+  caddy-config:

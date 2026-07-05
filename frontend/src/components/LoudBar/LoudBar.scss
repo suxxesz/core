@@ -1,0 +1,64 @@
+@use '../../styles/helpers' as *;
+
+.loud-bar {
+    padding-left: 20px;
+    &__wrapper {
+    width: 200px;
+    display: flex;
+    align-items: center;
+    @include hover {
+        background: var(--color-accent);
+    border-radius: calc(var(--border-radius) + 10px);
+    background: rgba(227, 223, 223, 0);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px var(--color-black);
+    backdrop-filter: blur(3.3px);
+    -webkit-backdrop-filter: blur(9.3px);
+    border: 1px solid rgba(210, 205, 205, 0.37);
+        .loud-bar__slider {
+            @include show;
+        }
+    }
+    }
+    &__button {
+        width: 49px;
+        height: 49px;
+        background-color: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        filter: var(--drop-shadow);
+        border: none;
+        @include hover {
+            transform: rotate(3px);
+            .loud-bar__slider {
+                @include show;
+            }
+        }
+        
+    }
+    &__icon {
+        width: 24px !important;
+        height: 24px !important;
+    }
+    &__slider {
+        height: 4px;
+        background-color: var(--color-black);
+        margin: 0 10px;
+        border-radius: 2px;
+        position: relative;
+        padding: 3px;
+        position: relative;
+        left: -10px;
+        accent-color: var(--color-black);
+            filter: var(--drop-shadow);
+        @include hide;
+        @include hover {
+                opacity: 0.7;
+        }
+         html.is-dark-theme & {
+            accent-color: var(--color-white);
+             filter: var(--drop-shadow);
+        }
+}
+}

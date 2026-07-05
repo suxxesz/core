@@ -1,0 +1,171 @@
+@use '../../styles/helpers' as *;
+
+$error-color: var(--color-dnd);
+$success-color: var(--color-green);
+$purple-glow: rgba(138, 96, 245, 0.35);
+$purple-light: rgba(138, 96, 245, 0.12);
+
+.country-select {
+  &__control {
+    height: 50px;
+    min-height: 50px;
+    padding-inline: 16px;
+    background-color: transparent !important;
+    background-repeat: no-repeat;
+    background-position: calc(100% - 16px) 50%;
+    border: 1.5px solid var(--color-white) !important;
+    border-radius: var(--border-radius) !important;
+    box-shadow: none !important;
+    cursor: pointer;
+    transition: border-color .25s ease, box-shadow .25s ease, background .25s ease;
+
+    // Адаптация высоты под мобильные (как в Field.scss)
+    @include mobile-s {
+      height: 40px;
+      min-height: 40px;
+    }
+
+    &:hover {
+      border-color: var(--color-purple, var(--color-purple-2)) !important;
+    }
+
+    &--is-focused {
+      border-color: var(--color-purple, var(--color-purple-2)) !important;
+      box-shadow: 0 0 0 3px $purple-light, 0 0 12px $purple-light !important;
+    }
+
+    html.is-dark-theme & {
+      background-color: transparent !important;
+      background-repeat: no-repeat;
+      background-position: calc(100% - 16px) 50%;
+
+      &--is-focused {
+        box-shadow: 0 0 0 3px $purple-light, 0 0 20px $purple-glow !important;
+      }
+    }
+  }
+
+  &__value-container {
+    padding: 0;
+    padding-right: 32px;
+    height: 100%; // Позволяет внутренним элементам выравниваться по родителю
+    align-content: center; // Центрирует текст по вертикали при изменении высоты
+  }
+
+  &__single-value {
+    color: var(--color-white) !important;
+    overflow: hidden;
+    margin: 0 !important; // Сброс дефолтных сдвигов react-select
+    font-size: 14px;
+
+    @include mobile-s {
+      font-size: clamp(14px, 3vw, 14px);
+    }
+  }
+
+  &__placeholder {
+    color: transparent;
+  }
+
+  &__input-container {
+    color: var(--color-white);
+    margin: 0 !important;
+    padding: 0 !important;
+    
+    // Исправление высоты каретки ввода на мобильных
+    input {
+      height: auto !important;
+    }
+  }
+
+  &__indicator-separator,
+  &__dropdown-indicator {
+    display: none; 
+  }
+
+  &__clear-indicator {
+    color: rgba(255, 255, 255, 0.4);
+    padding-right: 32px; 
+
+    &:hover {
+      color: var(--color-white);
+    }
+  }
+
+  &__menu {
+    background: var(--color-dark-thin) !important;
+    border: 1px solid rgba(138, 96, 245, 0.3);
+    border-radius: var(--border-radius);
+    z-index: 10 !important;
+  }
+
+  &__menu-list {
+    padding: 4px;
+    background: var(--color-dark-thin) !important;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-gray) transparent;
+  }
+
+  &__option {
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    color: var(--color-white) !important;
+    background: var(--color-dark-thin) !important;
+    transition: background .15s;
+
+    &--is-focused {
+      background: rgba(138, 96, 245, 0.15) !important;
+      color: var(--color-white) !important;
+    }
+
+    &--is-selected {
+      background: var(--color-violet) !important;
+      color: #c4a8ff !important;
+    }
+  }
+}
+
+// Контекстные статусы (вложенность через родительский .field для чистоты селекторов)
+.field {
+  &--error .country-select__control {
+    border-color: $error-color !important;
+    box-shadow: 0 0 0 2px var(--color-dnd) !important;
+    animation: shake .3s ease;
+
+    html.is-dark-theme & {
+      box-shadow: 0 0 0 2px var(--color-dnd), 0 0 14px var(--color-dnd) !important;
+    }
+  }
+
+  &--success .country-select__control {
+    border-color: $success-color !important;
+    box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.18) !important;
+
+    html.is-dark-theme & {
+      border-color: $success-color !important;
+      box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.25), 0 0 14px rgba(74, 222, 128, 0.1) !important;
+    }
+  }
+}
+
+// Активное состояние лейбла для селекта страны
+.field__label--active {
+  scale: 0.7;
+  translate: -1.3em -3em;
+
+  @include mobile-s {
+    translate: -1.6em -3.7em;
+  }
+}
+
+html.is-dark-theme .field:has(.country-select__control)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--border-radius);
+  background: linear-gradient(90deg, transparent -10%, $purple-light 40%, rgba(12, 12, 14, 0.8) 110%);
+  pointer-events: none;
+  z-index: 0;
+}
