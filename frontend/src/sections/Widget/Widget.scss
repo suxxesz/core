@@ -6,8 +6,7 @@
     align-self: center;
     align-items: center;    
     gap: 10px;
-    width: 400px;   
-    max-width: 400px;
+    width: clamp(280px, 85vw, 400px);
     height: auto;
     padding: 20px;
     @include backdrop;
@@ -15,7 +14,6 @@
     text-wrap: nowrap;
 
     @include mobile-s {
-        width: 320px;
         height: min-content;
         padding: 10px;
         gap: 3px;

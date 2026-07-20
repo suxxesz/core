@@ -14,7 +14,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const ENV_PATH = path.resolve(__dirname, '../.env')
 
 const serverOptions = {
-  logger: {
+  logger: {                                                     
     level: 'debug',
     transport: {
       target: 'pino-pretty',

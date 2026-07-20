@@ -18,7 +18,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ENV_PATH = path.resolve(__dirname, "../../.env"); // backend/server/bot -> backend/.env
 
 const app = Fastify({
-  logger: true,
+  logger: {
+    level: "debug",
+    transport: {
+      target: "pino-pretty",
+    },
+  }
 });
 
 async function start() {
@@ -44,7 +49,6 @@ async function start() {
   app.decorate("bot", bot);
 
   await app.register(fastifyCors, {
-    // Заменить на реальный домен фронтенда в проде, "*" — только для локальной разработки.
     origin: process.env.FRONTEND_ORIGIN ?? true,
   });
 
@@ -68,7 +72,9 @@ async function start() {
   }
 }
 
-start().catch((error) => {
+start().then(
+  app.log.info( "Bot service started")
+).catch((error) => {
   app.log.error({ err: error }, "Bot service failed to start");
   process.exit(1);
 });

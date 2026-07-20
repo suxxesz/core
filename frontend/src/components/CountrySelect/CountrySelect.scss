@@ -13,16 +13,14 @@ $purple-light: rgba(138, 96, 245, 0.12);
     background-color: transparent !important;
     background-repeat: no-repeat;
     background-position: calc(100% - 16px) 50%;
-    border: 1.5px solid var(--color-white) !important;
+    border: 1.5px solid var(--color-purple) !important;
     border-radius: var(--border-radius) !important;
     box-shadow: none !important;
-    cursor: pointer;
     transition: border-color .25s ease, box-shadow .25s ease, background .25s ease;
+    // Убран cursor: pointer;
 
-    // Адаптация высоты под мобильные (как в Field.scss)
     @include mobile-s {
-      height: 40px;
-      min-height: 40px;
+      padding-inline: 12px;
     }
 
     &:hover {
@@ -47,19 +45,19 @@ $purple-light: rgba(138, 96, 245, 0.12);
 
   &__value-container {
     padding: 0;
-    padding-right: 32px;
-    height: 100%; // Позволяет внутренним элементам выравниваться по родителю
-    align-content: center; // Центрирует текст по вертикали при изменении высоты
+    padding-right: 12px;
+    height: 100%;
+    align-content: center;
   }
 
   &__single-value {
     color: var(--color-white) !important;
     overflow: hidden;
-    margin: 0 !important; // Сброс дефолтных сдвигов react-select
+    margin: 0 !important;
     font-size: 14px;
 
     @include mobile-s {
-      font-size: clamp(14px, 3vw, 14px);
+      font-size: clamp(13px, 3.5vw, 14px);
     }
   }
 
@@ -72,7 +70,6 @@ $purple-light: rgba(138, 96, 245, 0.12);
     margin: 0 !important;
     padding: 0 !important;
     
-    // Исправление высоты каретки ввода на мобильных
     input {
       height: auto !important;
     }
@@ -80,12 +77,11 @@ $purple-light: rgba(138, 96, 245, 0.12);
 
   &__indicator-separator,
   &__dropdown-indicator {
-    display: none; 
+    display: none !important; 
   }
 
   &__clear-indicator {
     color: rgba(255, 255, 255, 0.4);
-    padding-right: 32px; 
 
     &:hover {
       color: var(--color-white);
@@ -110,7 +106,6 @@ $purple-light: rgba(138, 96, 245, 0.12);
     border-radius: 6px;
     font-size: 14px;
     font-family: inherit;
-    cursor: pointer;
     color: var(--color-white) !important;
     background: var(--color-dark-thin) !important;
     transition: background .15s;
@@ -127,7 +122,6 @@ $purple-light: rgba(138, 96, 245, 0.12);
   }
 }
 
-// Контекстные статусы (вложенность через родительский .field для чистоты селекторов)
 .field {
   &--error .country-select__control {
     border-color: $error-color !important;
@@ -150,13 +144,13 @@ $purple-light: rgba(138, 96, 245, 0.12);
   }
 }
 
-// Активное состояние лейбла для селекта страны
+
 .field__label--active {
-  scale: 0.7;
-  translate: -1.3em -3em;
+  scale: 0.75;
+  translate: -8px -26px; 
 
   @include mobile-s {
-    translate: -1.6em -3.7em;
+    translate: -8px -26px;
   }
 }
 

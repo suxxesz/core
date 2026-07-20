@@ -24,4 +24,5 @@ export interface IFieldProps  {
   onBlur: () => void
   errors?: string[] | string
   touched?: boolean
+  icon?: React.ReactNode
 }

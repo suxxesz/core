@@ -5,8 +5,7 @@ import Widget from '@/sections/Widget'
 import Icon from '@/components/Icon';
 import AudioPlayer from '@/sections/AudioPlayer';
 import CopyProvider from '@/providers/CopyProvider'
-import {MailCheck , GitGraph , Send} from 'lucide-react'
-import {LucideProps} from 'lucide-react'
+import {links} from '@/lib/mainLinks'
 
 export default (props : {
   children : React.ReactNode , 
@@ -14,17 +13,6 @@ export default (props : {
 }) => {
   const { children , subtitle } = props
 
-  interface ILinks {
-    name : string , 
-    href : string , 
-    icon : React.ForwardRefExoticComponent<Omit<LucideProps, "ref">>
-  }
-
-  const links : ILinks[] = [
-    { name: 'Telegramm', href: 'https://t.me/AE86TRUENO4AGE112HPRWD' , icon: Send },
-    { name: 'GitHub', href: 'https://github.com/suxxesz' , icon: GitGraph },
-    { name: 'Freelance', href: 'https://www.upwork.com/freelancers/~014d53cdeff21d99d6' , icon: MailCheck } , 
-  ] 
   return (
     <main className='main'>
     <div className='main'>

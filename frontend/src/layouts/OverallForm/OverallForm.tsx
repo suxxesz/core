@@ -8,9 +8,11 @@ import { Variants } from 'framer-motion'
 import { FormContext } from '@/context/FormContext'
 import { createPortal } from 'react-dom'
 import CountrySelect from '@/components/CountrySelect'
+import TopicSelect from '@/components/TopicSelect'
 import { TFormContext } from '@/types/Form/formContext.types'
 import { motion } from 'framer-motion'
-import { User, Mail, MessageSquare, Loader2, Check } from 'lucide-react'
+// Добавлены Globe и PenLine для новых полей
+import { User, Mail, MessageSquare, Loader2, Check, Globe, PenLine } from 'lucide-react' 
 import { RULES } from '@/hooks/useForm'
 
 const container = {
@@ -54,68 +56,96 @@ export default function OverallForm() {
   return (
     <>
     {createPortal(<Toast /> , document.body)}
-      <form noValidate onSubmit={onSubmit} aria-label="Contact form">
-        <motion.div
-          className="form"
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, ease: 'easeOut' }}
-        >
-          <h1 className="form__title">Need to contact with me? Write here!</h1>
-          <p className="form__progress" aria-live="polite">
-            {completedCount === requiredKeys.length
-              ? "All set — ready to send"
-              : `${completedCount}/${requiredKeys.length} required fields completed`}
-          </p>
-
+      <div className="form-levitate">
+        <form noValidate onSubmit={onSubmit} aria-label="Contact form">
           <motion.div
-            className="form__wrapper"
-            variants={container}
-            initial="hidden"
-            animate="show"
+            className="form"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, ease: 'easeOut' }}
           >
-            <motion.div variants={item} className="form__field form__field--icon">
-              <User className="form__field-icon" size={16} aria-hidden="true" />
-              <Field label="Your name" id="your-name" {...f('name')} />
+            <h1 className="form__title">Need to contact with me? Write here!</h1>
+            <p className="form__progress" aria-live="polite">
+              {completedCount === requiredKeys.length
+                ? "All set — ready to send"
+                : `${completedCount}/${requiredKeys.length} required fields completed`}
+            </p>
+
+            <motion.div
+              className="form__wrapper"
+              variants={container}
+              initial="hidden"
+              animate="show"
+            >
+              {/* Все поля теперь используют стандартный класс form__field и прокидывают icon */}
+              <motion.div variants={item} className="form__field">
+                <Field 
+                  label="Your name" 
+                  id="your-name" 
+                  icon={<User size={16} aria-hidden="true" />} 
+                  {...f('name')} 
+                />
+              </motion.div>
+
+              <motion.div variants={item} className="form__field">
+                <Field 
+                  label="Your surname" 
+                  id="your-subname" 
+                  icon={<User size={16} aria-hidden="true" />} 
+                  {...f('subname')} 
+                />
+              </motion.div>
+
+              <motion.div variants={item} className="form__field">
+                <Field 
+                  label="Your email" 
+                  id="your-email" 
+                  type="email" 
+                  icon={<Mail size={16} aria-hidden="true" />} 
+                  {...f('email')} 
+                />
+              </motion.div>
+
+              <motion.div variants={item} className="form__field">
+                <TopicSelect 
+                  icon={<MessageSquare size={16} aria-hidden="true" />} 
+                  {...f('topic')} 
+                />
+              </motion.div>
+
+              {/* Поля на всю ширину тоже получают свои иконки */}
+              <motion.div variants={item} className="form__field form__field--full">
+                <CountrySelect 
+                  icon={<Globe size={16} aria-hidden="true" />} 
+                  {...f('country')} 
+                />
+              </motion.div>
+
+              <motion.div variants={item} className="form__field form__field--full">
+                <Field 
+                  label="Write your message here..." 
+                  id="your-message" 
+                  icon={<PenLine size={16} aria-hidden="true" />} 
+                  {...f('message')} 
+                  isTextPole 
+                />
+              </motion.div>
             </motion.div>
 
-            <motion.div variants={item} className="form__field form__field--icon">
-              <User className="form__field-icon" size={16} aria-hidden="true" />
-              <Field label="Your surname" id="your-subname" {...f('subname')} />
-            </motion.div>
-
-            <motion.div variants={item} className="form__field form__field--icon">
-              <Mail className="form__field-icon" size={16} aria-hidden="true" />
-              <Field label="Your email" id="your-email" {...f('email')} type="email" />
-            </motion.div>
-
-            <motion.div variants={item} className="form__field form__field--icon">
-              <MessageSquare className="form__field-icon" size={16} aria-hidden="true" />
-              <Field label="Topic" id="your-topic" {...f('topic')} isSelect />
-            </motion.div>
-
-            <motion.div variants={item} className="form__field form__field--full">
-              <CountrySelect {...f('country')} />
-            </motion.div>
-
-            <motion.div variants={item} className="form__field form__field--full">
-              <Field label="Write your message here..." id="your-message" {...f('message')} isTextPole />
-            </motion.div>
+            <Button
+              className={clsx('btn--submit', {
+                'is-loading': submitStatus === 'loading',
+                'is-success': submitStatus === 'success',
+                'disabled':   !isValid,
+              })}
+              type="submit"
+              aria-disabled={!isValid}
+            >
+              {buttonLabel}
+            </Button>
           </motion.div>
-
-          <Button
-            className={clsx('btn--submit', {
-              'is-loading': submitStatus === 'loading',
-              'is-success': submitStatus === 'success',
-              'disabled':   !isValid,
-            })}
-            type="submit"
-            aria-disabled={!isValid}
-          >
-            {buttonLabel}
-          </Button>
-        </motion.div>
-      </form>
+        </form>
+      </div>
     </>
   )
 }
