@@ -1,0 +1,116 @@
+@use '../../styles/helpers' as *;
+
+.form {
+  @include backdrop;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 24px;
+  width: min(800px, 100%);
+  margin: 0 auto;
+  height: 90%;
+  position: relative;
+
+
+  &::before { @include glow-border(3px); }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 80px;
+    background: radial-gradient(ellipse, rgba(120, 80, 255, .12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  html.is-dark-theme & {
+    background-color: var(--color-black);
+  }
+
+  &__title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, var(--color-black) 30%, var(--color-purple));
+    @include gradient-text;
+    @include mobile {
+      font-size: clamp(10px, 5vw, 18px);
+    }
+    @include mobile-s {
+      font-size: 12px;
+    }
+    html.is-dark-theme & {
+      background: linear-gradient(135deg, var(--color-white) 30%, var(--color-purple));
+      @include gradient-text;
+    }
+  }
+
+  &__wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 16px;
+    width: 90%;
+    max-width: 100%;
+    padding: 10px;
+
+    > *:last-child { grid-column: 1 / -1; }
+  }
+
+  &__error {
+    color: #ff4d4d;
+    font-size: 13px;
+    margin-top: 8px;
+  }
+
+  &__submit-button {
+    margin-top: 16px;
+  }
+}
+
+.btn--submit {
+  background: linear-gradient(135deg, var(--color-puprle-dark) 0%, var(--color-purple) 45%, var(--color-purple-3) 100%);
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  height: 52px;
+  padding: 0 36px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: transform .15s, filter .15s, background .3s;
+  position: relative;
+  overflow: hidden;
+
+  @include hover {
+    filter: brightness(1.15);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(138, 96, 245, 0.35);
+  }
+
+  &:active { transform: scale(0.97); }
+
+  &.is-loading {
+    pointer-events: none;
+    background-size: 300% auto;
+    animation: shimmer 1s linear infinite;
+  }
+
+  &.is-success {
+    background: linear-gradient(135deg, var(--color-online ), var(--color-aquamarine));
+    pointer-events: none;
+    box-shadow: 0 0 20px var(--color-aquamarine-hover);
+  }
+
+  &.disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+    background: var(--color-gray, #444);
+    opacity: 0.6;
+    transform: none;
+    box-shadow: none;
+  }
+}

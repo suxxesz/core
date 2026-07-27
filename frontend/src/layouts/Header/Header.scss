@@ -1,0 +1,13 @@
+ @use '../../styles/helpers/' as * ; 
+ 
+ .header {
+     width: 100%;
+     display: flex;
+     justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    padding-inline: 20px;
+    @include mobile {
+        padding-inline: 8px;
+    }
+}

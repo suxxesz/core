@@ -1,0 +1,61 @@
+body {
+  html.is-dark-theme & {
+    background-image: url('@/assets/videos/dark-theme.gif');
+    transition: 0.1s background-image 0.1s ease-in-out;
+  }
+}
+
+.dark-theme-animation-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  pointer-events: none; 
+}
+
+.dark-theme-switcher-circle {
+  position: absolute;
+
+  width: 350vmax; 
+  height: 350vmax;
+  border-radius: 50%;
+  margin-top: -175vmax;
+  margin-left: -175vmax;
+  pointer-events: none;
+  transform-origin: center;
+
+  &-white {
+    background-color: var(--color-white);
+  }
+
+  &-black {
+    background-color: var(--color-dark-thin);
+  }
+}
+
+.dark-theme-switcher {
+  width: 44px;
+  height: 44px;
+  margin: 20px;
+  color: var(--color-light);
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  justify-content: center;
+  outline: none;
+  transition: 0.1s background-color 0.1s ease-in-out, color 0.1s ease-in-out, opacity 0.3s ease;
+  border: none;
+  position: relative;
+
+  &--disabled {
+    opacity: 0.5;
+  }
+
+  .icon-switcher {
+    width: 44px !important;
+    height: 44px !important;
+    pointer-events: none; 
+  }
+}
