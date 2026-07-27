@@ -1,17 +1,19 @@
-@use '../../styles/helpers/' as * ; 
+@use '../../styles/helpers/' as *;
 
 .main {
-      display: flex;
-        flex-direction: column; 
-        align-items: center;
-        justify-content: center;
-        perspective: 800px ;
-        width: 100%;
-        position: relative;
-            background-image: url('app/src/assets/videos/downloaded-file.gif');
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    perspective: 800px;
+    width: 100%;
+    position: relative;
+    background-image: url('app/src/assets/videos/downloaded-file.gif');
+
     &__title {
         font-family: Histress, Ashborn, Onerock, Manrope, sans-serif;
-        font-size:  clamp(200px, 5vw, 40px);;
+        font-size: clamp(200px, 5vw, 40px);
+        ;
         display: grid;
         place-items: center;
         margin-top: -60px;
@@ -19,73 +21,94 @@
         perspective: 100px;
         filter: drop-shadow(-3px 5px 87px var(--color-white));
         letter-spacing: 2rem;
-         transform: rotateX(28deg);
-         line-height: 1.2;
-         color: var(--color-black);
-         text-shadow: 1px 1px 0 var(--color-white), 2px 2px 5px var(--color-dark) ; 
-         font-weight: 500;
-         transition: 0.14s color 0.1s ease-in-out;
+        transform: rotateX(28deg);
+        line-height: 1.2;
+        color: var(--color-black);
+        text-shadow: 1px 1px 0 var(--color-white), 2px 2px 5px var(--color-dark);
+        font-weight: 500;
+        transition: 0.14s color 0.1s ease-in-out;
 
         html.is-dark-theme & {
             color: var(--color-light);
-             text-shadow: 1px 1px 0 var(--color-white), 2px 2px 5px var(--color-gray) ;
+            text-shadow: 1px 1px 0 var(--color-white), 2px 2px 5px var(--color-gray);
         }
 
         @include tablet {
-            font-size:  clamp(160px, 5vw, 40px);;
+            font-size: clamp(40px, 5vw, 160px);
             margin-top: 10px;
             margin-bottom: 20px;
         }
+
         @include mobile {
-            font-size:  clamp(100px, 5vw, 40px);;
+            font-size: clamp(40px, 5vw, 100px);
+            letter-spacing: 1.2rem;
             margin-top: 20px;
             margin-bottom: 20px;
         }
+
         @media (width < 500px) {
-            font-size:  clamp(80px, 5vw, 40px);;
+            font-size: clamp(40px, 5vw, 80px);
+            letter-spacing: .8rem;
             margin-top: 20px;
             margin-bottom: 20px;
         }
+
+        @media (width < 500px) {
+            font-size: clamp(80px, 5vw, 40px);
+            ;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
         @include mobile-s {
-            font-size:  clamp(37px, 5vw, 40px);;
+           font-size: clamp(37px, 5vw, 40px);
+            letter-spacing: .4rem;
             margin-top: 30px;
             margin-bottom: 20px;
         }
+
         @media (width < 330px) {
-        font-size:  clamp(20px, 5vw, 40px);;
-        font-family: Manrope;
-        perspective: none;
-        letter-spacing: 5px;
+            font-size: clamp(20px, 5vw, 40px);
+            font-family: Manrope;
+            perspective: none;
+            letter-spacing: 5px;
+        }
     }
-    }
+
     &__subtitle {
         font-family: Manrope, sans-serif;
-        font-size: clamp(22px, 3vw, 18px);
+        font-size: clamp(18px, 3vw, 22px);
         margin: 0 auto;
         margin-bottom: 10px;
-            transform: rotateX(28deg);
-            line-height: 1.2;
-            text-shadow: 0 0 10px var(--color-white);
-            text-transform: uppercase;
+        transform: rotateX(28deg);
+        line-height: 1.2;
+        text-shadow: 0 0 10px var(--color-white);
+        text-transform: uppercase;
         padding-bottom: 24px;
         font-weight: 400;
         letter-spacing: .1rem;
         margin-top: 16px;
         text-shadow: 0 0 10px var(--color-white);
         text-transform: uppercase;
-         color: var(--color-black);
-         transition: 0.15s color 0.1s ease-in-out;
-         html.is-dark-theme & {
+        color: var(--color-black);
+        transition: 0.15s color 0.1s ease-in-out;
+
+        html.is-dark-theme & {
             color: var(--color-light);
         }
+
         @include mobile-s {
-            font-size: clamp(16px, 3vw, 18px); ;;
+            font-size: clamp(16px, 3vw, 18px);
+            ;
+            ;
         }
     }
+
     &__links {
         display: flex;
         gap: 10px;
         margin-top: 20px;
+
         &--list {
             display: flex;
             gap: 20px;
@@ -93,6 +116,7 @@
             padding: 0;
             margin: 10px;
         }
+
         &--item {
             text-decoration: none;
             transition: color 0.2s;
@@ -103,42 +127,50 @@
         }
 
     }
+
     &__link {
         width: 60px;
         height: 60px;
         display: flex;
         align-items: center;
-        justify-content: space-between; 
+        justify-content: space-between;
         background-color: var(--color-light);
-            color: var(--color-light);
-            filter: drop-shadow(-3px 5px 87px var(--color-white));
-            border: none;
-            filter: var(--drop-shadow);
-            transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out; 
+        color: var(--color-light);
+        filter: drop-shadow(-3px 5px 87px var(--color-white));
+        border: none;
+        filter: var(--drop-shadow);
+        transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+
         @include mobile {
-            @include square(40) ; 
+            @include square(40);
         }
+
         @include mobile-s {
-            @include square(30)  ;
+            @include square(30);
         }
+
         @include hover {
             transform: scale3d(4px);
         }
-        
+
         &-icon {
             width: 44px !important;
             height: 44px !important;
             fill: var(--color-light);
-        :active {
-        color: var(--color-light);
-        }
-        html.is-dark-theme & {
-            fill: none;
-        }
-        @include mobile-s {
-            width: 40px !important;
-            height: 40px !important;;
+
+            :active {
+                color: var(--color-light);
+            }
+
+            html.is-dark-theme & {
+                fill: none;
+            }
+
+            @include mobile-s {
+                width: 40px !important;
+                height: 40px !important;
+                ;
+            }
         }
     }
-}
 }

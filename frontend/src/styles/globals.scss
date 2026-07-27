@@ -19,6 +19,7 @@ body {
   background-size: cover;
   background-image: url('../assets/videos/light-theme.gif');
   transition: 0.1s background-image 0.1s ease-in-out;
+  overflow-x: hidden;
   html.is-dark-theme & {
     background-image: url('../assets/videos/dark-theme.gif');
   }

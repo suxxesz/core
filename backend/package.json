@@ -5,7 +5,10 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/server.ts"
+    "start": "node server/server.ts",
+    "start:bot": "node server/bot/start.js",
+    "dev": "nodemon server/server.js",
+    "dev:bot": "nodemon server/bot/start.js"
   },
   "keywords": [],
   "author": "",

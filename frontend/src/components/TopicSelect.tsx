@@ -1,23 +1,19 @@
 import ReactSelect from 'react-select'
-import countryList from 'country-list'
-import './CountrySelect.scss'
 import React, { useMemo, useState } from 'react'
 import clsx from 'clsx'
-import { CountryProps } from '@/types/componets/country.types'
+import { TOPICS } from '@/hooks/useForm'
+import { TopicProps } from '@/types/componets/topic.types'
 
-const options = countryList.getData().map(({ code, name }) => ({
-  value: code as string,
-  label: name as string,
-}))
+const options = TOPICS.map(({ value, label }) => ({ value, label }))
 
-export default function CountrySelect({
+export default function TopicSelect({
   value,
   onChange,
   onBlur,
   errors,
   touched,
   icon,
-}: CountryProps & { icon?: React.ReactNode }) {
+}: TopicProps & { icon?: React.ReactNode }) {
   const [isFocused, setIsFocused] = useState(false)
 
   const selected = useMemo(() => options.find((o) => o.value === value) ?? null, [value])
@@ -41,7 +37,7 @@ export default function CountrySelect({
     >
       <label className={clsx('field__label', { 'field__label--active': isLabelActive })}>
         {icon && <span className="field__label-icon">{icon}</span>}
-        Your country
+        Topic
       </label>
 
       <ReactSelect
@@ -57,7 +53,7 @@ export default function CountrySelect({
           setIsFocused(false)
           onBlur?.(e)
         }}
-        isClearable
+        isSearchable={false}
         placeholder=""
         classNamePrefix="country-select"
         // Вырезаем встроенные иконки и разделители react-select:

@@ -13,8 +13,8 @@ declare module '*.ogg' {
   export default src;
 }
 declare module '*.scss' {
-    const content: { [className: string]: string };
-    export default content;
+  const content: { [className: string]: string };
+  export default content;
 }
 declare module '*.img' {
   const src: string;
@@ -23,4 +23,23 @@ declare module '*.img' {
 declare module '*.jpg' {
   const src: string;
   export default src;
+}
+
+/// <reference types="vite/client" />
+
+interface ImportMetaEnv {
+  readonly VITE_MAIN_API_URL: string;
+  readonly VITE_BOT_API_URL: ImportMetaEnv;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
+
+declare namespace NodeJS {
+   interface ProcessEnv {
+    VITE_MAIN_API_URL : string 
+  VITE_BOT_API_URLL :  string
+  VITE_USER_ID :  string
+}
 }

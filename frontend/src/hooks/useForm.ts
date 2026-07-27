@@ -103,7 +103,7 @@ const useForm = () => {
 
 
   const countOfWords = useMemo(() =>  {
-    return `${fields.message.value.length}/${RULES.message.max}` || '0/5000'
+    return Number(`${fields.message.value.length}/${RULES.message.max}`) || '0/5000'
   }, [fields.message.value])
 
   const validationError = useMemo(() => {

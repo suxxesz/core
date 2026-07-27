@@ -8,13 +8,12 @@ export type TFormContext = {
             touched: boolean
         }
      },
-     onChange: any,
-     onBlur: any,
-     onSubmit: any,
-     isValid: any,
-     submitStatus: any
-    countOfWords: any,
+     onChange: (name : string, value : string) => void  ,
+     onBlur: (name : string) => void  ,
+     onSubmit: React.SubmitEventHandler<HTMLFormElement>  ,
+     isValid: boolean,
+     submitStatus: 'idle' | 'loading' | 'success' | 'error',
+    countOfWords: number,
     toast: Toast,
     setToast: React.Dispatch<React.SetStateAction<Toast>>
-
 }

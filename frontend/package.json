@@ -10,20 +10,29 @@
   },
   "dependencies": {
     "@a1rth/css-normalize": "^1.2.4",
-    "better-sqlite3": "^12.10.0",
     "clsx": "^1.2.1",
+<<<<<<< HEAD
     "cors": "^2.8.6",
     "country-list": "^2.4.1",
     "discord.js": "^14.26.4",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+=======
+    "country-list": "^2.4.1",
+    "dotenv": "^17.4.2",
+    "framer-motion": "^12.40.0",
+>>>>>>> 3f27d723ea07d02218001e33192d80620e63fbf0
     "jotai": "^2.20.1",
     "lucide-react": "^1.14.0",
     "normalize.css": "^8.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+<<<<<<< HEAD
     "react-select": "^5.10.2",
     "ts": "^0.2.2"
+=======
+    "react-select": "^5.10.2"
+>>>>>>> 3f27d723ea07d02218001e33192d80620e63fbf0
   },
   "devDependencies": {
     "@types/country-list": "^2.1.4",

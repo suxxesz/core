@@ -13,6 +13,7 @@ $purple-light: rgba(138, 96, 245, 0.12);
     background-color: transparent !important;
     background-repeat: no-repeat;
     background-position: calc(100% - 16px) 50%;
+<<<<<<< HEAD
     border: 1.5px solid var(--color-white) !important;
     border-radius: var(--border-radius) !important;
     box-shadow: none !important;
@@ -23,6 +24,16 @@ $purple-light: rgba(138, 96, 245, 0.12);
     @include mobile-s {
       height: 40px;
       min-height: 40px;
+=======
+    border: 1.5px solid var(--color-purple) !important;
+    border-radius: var(--border-radius) !important;
+    box-shadow: none !important;
+    transition: border-color .25s ease, box-shadow .25s ease, background .25s ease;
+    // Убран cursor: pointer;
+
+    @include mobile-s {
+      padding-inline: 12px;
+>>>>>>> 3f27d723ea07d02218001e33192d80620e63fbf0
     }
 
     &:hover {
@@ -47,19 +58,33 @@ $purple-light: rgba(138, 96, 245, 0.12);
 
   &__value-container {
     padding: 0;
+<<<<<<< HEAD
     padding-right: 32px;
     height: 100%; // Позволяет внутренним элементам выравниваться по родителю
     align-content: center; // Центрирует текст по вертикали при изменении высоты
+=======
+    padding-right: 12px;
+    height: 100%;
+    align-content: center;
+>>>>>>> 3f27d723ea07d02218001e33192d80620e63fbf0
   }
 
   &__single-value {
     color: var(--color-white) !important;
     overflow: hidden;
+<<<<<<< HEAD
     margin: 0 !important; // Сброс дефолтных сдвигов react-select
     font-size: 14px;
 
     @include mobile-s {
       font-size: clamp(14px, 3vw, 14px);
+=======
+    margin: 0 !important;
+    font-size: 14px;
+
+    @include mobile-s {
+      font-size: clamp(13px, 3.5vw, 14px);
+>>>>>>> 3f27d723ea07d02218001e33192d80620e63fbf0
     }
   }
 
@@ -72,7 +97,10 @@ $purple-light: rgba(138, 96, 245, 0.12);
     margin: 0 !important;
     padding: 0 !important;
     
+<<<<<<< HEAD
     // Исправление высоты каретки ввода на мобильных
+=======
+>>>>>>> 3f27d723ea07d02218001e33192d80620e63fbf0
     input {
       height: auto !important;
     }
@@ -80,12 +108,19 @@ $purple-light: rgba(138, 96, 245, 0.12);
 
   &__indicator-separator,
   &__dropdown-indicator {
+<<<<<<< HEAD
     display: none; 
+=======
+    display: none !important; 
+>>>>>>> 3f27d723ea07d02218001e33192d80620e63fbf0
   }
 
   &__clear-indicator {
     color: rgba(255, 255, 255, 0.4);
+<<<<<<< HEAD
     padding-right: 32px; 
+=======
+>>>>>>> 3f27d723ea07d02218001e33192d80620e63fbf0
 
     &:hover {
       color: var(--color-white);
@@ -110,7 +145,10 @@ $purple-light: rgba(138, 96, 245, 0.12);
     border-radius: 6px;
     font-size: 14px;
     font-family: inherit;
+<<<<<<< HEAD
     cursor: pointer;
+=======
+>>>>>>> 3f27d723ea07d02218001e33192d80620e63fbf0
     color: var(--color-white) !important;
     background: var(--color-dark-thin) !important;
     transition: background .15s;
@@ -127,7 +165,10 @@ $purple-light: rgba(138, 96, 245, 0.12);
   }
 }
 
+<<<<<<< HEAD
 // Контекстные статусы (вложенность через родительский .field для чистоты селекторов)
+=======
+>>>>>>> 3f27d723ea07d02218001e33192d80620e63fbf0
 .field {
   &--error .country-select__control {
     border-color: $error-color !important;
@@ -150,6 +191,7 @@ $purple-light: rgba(138, 96, 245, 0.12);
   }
 }
 
+<<<<<<< HEAD
 // Активное состояние лейбла для селекта страны
 .field__label--active {
   scale: 0.7;
@@ -157,6 +199,15 @@ $purple-light: rgba(138, 96, 245, 0.12);
 
   @include mobile-s {
     translate: -1.6em -3.7em;
+=======
+
+.field__label--active {
+  scale: 0.75;
+  translate: -8px -26px; 
+
+  @include mobile-s {
+    translate: -8px -26px;
+>>>>>>> 3f27d723ea07d02218001e33192d80620e63fbf0
   }
 }
 
@@ -168,4 +219,8 @@ html.is-dark-theme .field:has(.country-select__control)::before {
   background: linear-gradient(90deg, transparent -10%, $purple-light 40%, rgba(12, 12, 14, 0.8) 110%);
   pointer-events: none;
   z-index: 0;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 3f27d723ea07d02218001e33192d80620e63fbf0
