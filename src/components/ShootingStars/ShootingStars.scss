@@ -1,0 +1,35 @@
+.shooting-stars {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -1; 
+}
+
+.shooting-stars__comet {
+  position: absolute;
+  width: var(--size, 3px);
+  height: var(--size, 3px);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 6px 1px rgba(255, 255, 255, .9);
+  animation: comet-fly var(--duration, 1.6s) linear forwards;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    width: 90px;
+    height: 1.5px;
+    transform: translateY(-50%);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .75));
+  }
+}
+
+@keyframes comet-fly {
+  0%   { opacity: 0; transform: rotate(var(--angle)) translateX(0); }
+  8%   { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { opacity: 0; transform: rotate(var(--angle)) translateX(700px); }
+}

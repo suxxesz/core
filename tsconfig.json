@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "jsx": "react-jsx" , 
+    "strict" : true , 
+  },
+  "exclude": ["node_modules"] ,
+  "include" : [ 
+    "src",
+    "vite-env.d.ts"]
+}

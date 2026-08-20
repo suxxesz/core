@@ -1,0 +1,26 @@
+{$DOMAIN:localhost} {
+	# Telegram-бот сервис (server/bot/start.js)
+	route /api/* {
+		reverse_proxy backend-bot:3001
+	}
+
+	route /health {
+		reverse_proxy backend-bot:3001
+	}
+
+	# Основной сервер (server/server.js): анкеты + discord-виджет
+	route /applications* {
+		reverse_proxy backend-main:3000
+	}
+
+	route /users/* {
+		reverse_proxy backend-main:3000
+	}
+
+	# Всё остальное — статика собранного фронтенда (SPA fallback на index.html)
+	route {
+		root * /srv
+		try_files {path} /index.html
+		file_server
+	}
+}

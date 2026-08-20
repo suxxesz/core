@@ -1,0 +1,32 @@
+// InteractiveStars.scss (обновляем частицы под новую палитру)
+.interactive-stars {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.star-particles-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+
+  .star-particle {
+    position: absolute;
+    top: 0; left: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff 0%, var(--pc, #f5f4f4) 55%, transparent 100%);
+    box-shadow: 0 0 14px 4px color-mix(in srgb, var(--pc, #e6e4e1) 70%, transparent);
+  }
+
+  .star-flash {
+    position: absolute;
+    top: 0; left: 0;
+    width: 40px; height: 40px;
+    margin: -20px 0 0 -20px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(155, 152, 146, 0.8);
+    box-shadow: 0 0 24px 6px rgba(238, 235, 231, 0.4);
+  }
+}
