@@ -48,6 +48,10 @@ async function applicationRouter(fastify : FastifyInstance, opts : any) {
       }
     }
   }
+  fastify.setErrorHandler( async function customErrorHandler(error , request , reply) {
+    request.log.error(error, 'an error happened in Fastify Instance!');
+    reply.status(503).send({ ok: false });
+  })
 
   fastify.post<{
     Params: {
@@ -55,8 +59,13 @@ async function applicationRouter(fastify : FastifyInstance, opts : any) {
     },
     Body: Pick<DiscordUser , 'discord_id'> & { name: string; email: string; message: string
     },
-  }>('/', { schema: postSchema }, async (request : FastifyRequest & { body: Pick<DiscordUser , 'discord_id'> & { name: string; email: string; message: string } }, reply : any) => {
-    try {
+  }>('/', {
+    schema: postSchema ,
+    errorHandler : async function (error , request , reply) {
+      const catchedError = request.log.error(error , 'error occured while posting data! ')
+      return  {success : false , status : 403}
+    } ,
+  }  , async (request : FastifyRequest & { body: Pick<DiscordUser , 'discord_id'> & { name: string; email: string; message: string } }, reply : any) => {
       const {discord_id, name, email, message } = request.body
       const stmt = db.prepare(`
         INSERT INTO applications (discord_id, name, email, message)
@@ -72,43 +81,43 @@ async function applicationRouter(fastify : FastifyInstance, opts : any) {
         id: Number(result.lastInsertRowid),
         message: 'Заявка принята',
       })
-    } catch (error) {
-      fastify.log.error(error)
-      return reply.code(500).send({ error: 'Внутренняя ошибка сервера' })
-    }
   })
-
-  fastify.get('/', async (_request : FastifyRequest, reply) => {
-    try {
+  //Кастомный обработчик ошибки маршрута!
+  fastify.get('/', {
+    errorHandler : async function (error , request , reply) {
+      const catchedError = request.log.error(error , 'error occured while getting data! ')
+      return  {success : false , status :403 , catchedError}
+    }
+  } 
+  , async (_request : FastifyRequest, reply) => {
       const rows = db.prepare('SELECT * FROM applications ORDER BY created_at DESC').all()
       return rows 
-    } catch (error) {
-      fastify.log.error(error)
-      return reply.code(500).send({ error: 'Не удалось получить данные' })
-    }
   })
 
   fastify.patch<
   Request & { Params: { id: string }; Body: { status: 'pending' | 'approved' | 'rejected' } }
-  >('/:id/status', { schema: patchSchema }, async (request : FastifyRequest & { params: { id: string }; body: { status: 'pending' | 'approved' | 'rejected' } }, reply) => {
-    try {
+  >('/:id/status', 
+    {
+    schema :  patchSchema , 
+    errorHandler : async function (error , request , reply) {
+      const catchedError = request.log.error(error , 'error occured while getting data! ')
+      return  {success : false , status : 403 , catchedError}
+    }
+  } 
+    , async (request : FastifyRequest & { params: { id: string }; body: { status: 'pending' | 'approved' | 'rejected' } }, reply) => {
       const { id } = request.params
       const { status } = request.body
       const stmt = db.prepare('UPDATE applications SET status = ? WHERE id = ?')
       const result = stmt.run(status, id)
 
       if (result.changes === 0) {
-        return reply.code(404).send({ error: 'Cant find order with this ID!' })
+        throw new Error('Application not found')
       }
       return {
         id: Number(id), 
         status,
         message: 'Статус обновлен!'
       }
-    } catch (error) {
-      fastify.log.error(error, 'occurred while patching datum!')
-      return reply.code(500).send({ error: 'Не удалось получить данные' })
-    }
   })
 }
 

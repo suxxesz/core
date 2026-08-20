@@ -4,6 +4,7 @@ import svgr from 'vite-plugin-svgr'
 import path from 'path' // Импортируем path вместо node:url
 
 export default defineConfig({
+  base: '/core/' ,
   plugins: [react(), svgr()],
   resolve: {
     alias: {

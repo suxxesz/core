@@ -1,4 +1,4 @@
-import { Fields } from '@/types/Form/field.types';
+import { Fields } from '@/types/form/field.types';
 
 // Раньше URL был захардкожен как http://localhost:3001 — работает только
 // локально. В проде фронтенд и бэкенд обычно живут на разных origin/портах,

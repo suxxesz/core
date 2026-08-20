@@ -3,16 +3,17 @@ import {
     createSession,
     getSession,
     updateSession,
-} from "./session/store.js";
+} from "./session/store.ts";
 import type { FastifyInstance } from "fastify";
-import type { IForm, Session } from "../../shared/types/form.types.js";
+import type { IForm, Session } from "../../../server/shared/types/form.types.ts";
 
 export default async function register(fastify : FastifyInstance) {
     const bot = fastify.bot;
 
     fastify.post<{
         Body : IForm
-    }>("/api/message", async (request, reply) => {
+    }>
+    ("/api/message", async (request, reply) => {
         const fields  = request.body;
 
         const sessionId = crypto.randomUUID();

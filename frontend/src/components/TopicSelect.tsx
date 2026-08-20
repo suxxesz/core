@@ -43,6 +43,9 @@ export default function TopicSelect({
       <ReactSelect
         options={options}
         value={selected}
+        styles={{
+          menuPortal: base => ({ ...base, zIndex: 9999 })
+        }}
         onChange={(option) =>
           onChange?.({
             target: { value: option?.value ?? '' },
@@ -56,7 +59,6 @@ export default function TopicSelect({
         isSearchable={false}
         placeholder=""
         classNamePrefix="country-select"
-        // Вырезаем встроенные иконки и разделители react-select:
         components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
       />
 

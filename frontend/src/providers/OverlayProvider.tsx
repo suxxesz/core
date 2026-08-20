@@ -1,7 +1,6 @@
 import useOverlay from "@/hooks/useOverlay"
 import { OverlayContext } from "@/context/OverlayContext"
-//@ts-ignore
-import { IOverlayContext } from "@/types/providers/overlay.types"
+import { IOverlayContext } from "@/types/providers.interfaces"
 import React  from "react"
 
 

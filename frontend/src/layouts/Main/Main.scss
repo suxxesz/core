@@ -18,7 +18,7 @@
         place-items: center;
         margin-top: -60px;
         font-weight: 600;
-        perspective: 100px;
+        perspective: 800px;
         filter: drop-shadow(-3px 5px 87px var(--color-white));
         letter-spacing: 2rem;
         transform: rotateX(28deg);
@@ -40,7 +40,7 @@
         }
 
         @include mobile {
-            font-size: clamp(40px, 5vw, 100px);
+            font-size: clamp(80px, 5vw, 100px);
             letter-spacing: 1.2rem;
             margin-top: 20px;
             margin-bottom: 20px;
@@ -53,7 +53,7 @@
             margin-bottom: 20px;
         }
 
-        @media (width < 500px) {
+        @media (width > 500px) {
             font-size: clamp(80px, 5vw, 40px);
             ;
             margin-top: 20px;
@@ -61,7 +61,7 @@
         }
 
         @include mobile-s {
-           font-size: clamp(37px, 5vw, 40px);
+           font-size: clamp(70px, 5vw, 80px);
             letter-spacing: .4rem;
             margin-top: 30px;
             margin-bottom: 20px;
@@ -98,7 +98,7 @@
         }
 
         @include mobile-s {
-            font-size: clamp(16px, 3vw, 18px);
+            font-size: clamp(16px, 3vw, 12px);
             ;
             ;
         }

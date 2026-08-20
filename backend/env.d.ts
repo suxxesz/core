@@ -7,7 +7,6 @@ export interface config {
   GUILD_ID: string
   TELEGRAM_CHAT_ID : string
   TELEGRAM_BOT_TOKEN : string
-  BOT_PORT: number
 }
 
 declare module 'fastify' {

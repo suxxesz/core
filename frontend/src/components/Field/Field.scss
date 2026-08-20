@@ -2,23 +2,31 @@
 
 $error-color: var(--color-dnd);
 $success-color: var(--color-green);
-$purple-glow: rgba(138, 96, 245, 0.35); // синхронизировано с CountrySelect.scss — было rgba(96,34,252,.35), другой оттенок свечения на фокусе
+$purple-glow: rgba(138, 96, 245, 0.35);
 $purple-light: rgba(138, 96, 245, 0.12);
 
-.field { 
+.field {
   position: relative;
+  z-index: 1;
   margin-inline: 0 10px;
   margin-block: 10px;
   padding-bottom: 5px;
-  overflow: visible;
+
+
+
+  &:focus-within {
+    z-index: 100;
+  }
+  &:hover {
+    z-index: 50;
+  }
 
   @include mobile-s {
     margin-block: 8px;
     margin-inline: 0 5px;
-    width: 80%;
+    width: 94%;
   }
 
-  // --- Динамика лейблов при заполнении ---
   &:has(.field__input:not(:placeholder-shown)) .field__label {
     scale: 0.7;
     translate: -1.95em -3.10em;
@@ -37,16 +45,25 @@ $purple-light: rgba(138, 96, 245, 0.12);
     }
   }
 
-  &:has(.field__select:not(:placeholder-shown)) .field__label {
+  &:has(.field__select__single-value) .field__label {
     scale: 0.7;
     translate: -1.3em -3em;
 
     @include mobile-s {
-      translate: -1.6em -3.7em;
+      translate: -1.9em -4.9em;
+    }
+  }
+   &:has(.field__select__single-value) .field__label--active {
+    scale: 0.75;
+    translate: -322 0px -50px;
+    z-index: 5; 
+    pointer-events: none; 
+
+    @include mobile-s {
+      translate: -24px -46px;
     }
   }
 
-  // --- Модификаторы контекста родителя ---
   &--error {
     --field-accent: #{$error-color};
   }
@@ -55,90 +72,7 @@ $purple-light: rgba(138, 96, 245, 0.12);
     --field-accent: #{$success-color};
   }
 
-  // --- Стили Селекта ---
-  .field__select {
-    appearance: none;
-    cursor: pointer;
-    background-repeat: no-repeat;
-    background-position: calc(100% - 16px) 50%;
 
-    width: 100%;
-    height: 50px; // Базовая высота как у инпута
-    padding-inline: 16px; // было 16px/48px (ассиметрично) — стрелка нигде не рисуется
-                          // (appearance:none, своей нет), лишнее место просто сдвигало
-                          // текст влево относительно CountrySelect
-    background-color: transparent !important;
-    border: 1.5px solid var(--color-white) !important;
-    border-radius: var(--border-radius) !important;
-    box-shadow: none !important;
-    color: var(--color-white) !important;
-    font-family: inherit;
-    font-size: 14px;
-    transition: border-color .25s ease, box-shadow .25s ease, background .25s ease;
-
-    // Синхронизация высоты с инпутами на мобильных
-    @include mobile-s {
-      height: 40px;
-      font-size: clamp(14px, 3vw, 14px);
-    }
-
-    &:hover {
-      border-color: var(--color-purple, var(--color-purple-2)) !important;
-    }
-
-    &:focus {
-      outline: none;
-      border-color: var(--color-purple, var(--color-purple-2)) !important;
-      box-shadow: 0 0 0 3px $purple-light, 0 0 12px $purple-light !important;
-    }
-
-    // Тёмная тема
-    html.is-dark-theme & {
-      background-color: transparent !important;
-
-      &:focus {
-        box-shadow: 0 0 0 3px $purple-light, 0 0 20px $purple-glow !important;
-      }
-    }
-
-    // Опции выпадающего списка
-    &--option {
-      background: var(--color-dark-thin) !important;
-      color: var(--color-white) !important;
-      font-size: 14px;
-
-      &:disabled {
-        color: rgba(255, 255, 255, 0.4);
-      }
-
-      @include hover {
-        background-color: var(--color-violet) !important;
-      }
-    }
-
-    // Статусы синхронизированы с .field__input
-    .field--error & {
-      border-color: $error-color !important;
-      box-shadow: 0 0 0 2px var(--color-dnd) !important;
-      animation: shake .3s ease;
-
-      html.is-dark-theme & {
-        box-shadow: 0 0 0 2px var(--color-dnd), 0 0 14px var(--color-dnd) !important;
-      }
-    }
-
-    .field--success & {
-      border-color: $success-color !important;
-      box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.18) !important;
-
-      html.is-dark-theme & {
-        border-color: $success-color !important;
-        box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.25), 0 0 14px rgba(74, 222, 128, 0.1) !important;
-      }
-    }
-  }
-
-  // --- Вспомогательные элементы ---
   .field__label--active {
     scale: 0.7;
     translate: -1.3em -3em;
@@ -158,7 +92,6 @@ $purple-light: rgba(138, 96, 245, 0.12);
     z-index: 0;
   }
 
-  /* Добавь это в блок .field__label (внутри файла Field.scss) */
 
   &__label {
     position: absolute;
@@ -169,11 +102,11 @@ $purple-light: rgba(138, 96, 245, 0.12);
     user-select: none;
     transition: translate .2s, scale .2s, color .2s;
     pointer-events: none;
-    
+
     display: flex;
     align-items: center;
     gap: 8px;
-    max-width: calc(100% - 34px); 
+    max-width: calc(100% - 34px);
     white-space: nowrap;
     overflow: hidden;
 
@@ -201,17 +134,122 @@ $purple-light: rgba(138, 96, 245, 0.12);
     html.is-dark-theme & {
       color: var(--color-accent);
     }
+
+    &--text {
+      text-overflow: none;
+      overflow: hidden;
+    }
+  }
+  .field__select {
+    &__control {
+      width: 100%;
+      height: 50px;
+      min-height: 50px;
+      padding-inline: 10px;
+      background-color: transparent !important;
+      border: 1.5px solid var(--color-black) !important;
+      border-radius: var(--border-radius) !important;
+      box-shadow: none !important;
+      cursor: pointer;
+      transition: border-color .25s ease, box-shadow .25s ease;
+
+      @include mobile-s {
+        height: 40px;
+        min-height: 40px;
+        font-size: clamp(14px, 3vw, 14px);
+      }
+
+      &:hover {
+        border-color: var(--color-purple, var(--color-purple-2)) !important;
+      }
+
+      &--is-focused {
+        outline: none;
+        border-color: var(--color-purple, var(--color-purple-2)) !important;
+        box-shadow: 0 0 0 3px $purple-light, 0 0 12px $purple-light !important;
+      }
+
+      html.is-dark-theme & {
+        background-color: transparent !important;
+        border-color: var(--color-white) !important;
+
+        &--is-focused {
+          box-shadow: 0 0 0 3px $purple-light, 0 0 20px $purple-glow !important;
+        }
+      }
+
+      .field--error & {
+        border-color: $error-color !important;
+        box-shadow: 0 0 0 2px var(--color-dnd) !important;
+        animation: shake .3s ease;
+      }
+
+      .field--success & {
+        border-color: $success-color !important;
+        box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.18) !important;
+      }
+    }
+
+    &__single-value {
+      color: var(--color-black);
+
+      html.is-dark-theme & {
+        color: var(--color-white);
+      }
+    }
+
+    &__placeholder {
+      color: transparent;
+    }
+
+    &__input-container {
+      color: var(--color-black);
+
+      html.is-dark-theme & {
+        color: var(--color-white);
+      }
+    }
+
+    &__menu {
+      z-index: 9999 !important;
+      background: rgba(18, 18, 26, 0.97) !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      border-radius: 8px !important;
+      backdrop-filter: blur(16px);
+      overflow: hidden;
+    }
+
+    &__menu-list {
+      padding: 4px 0;
+    }
+
+    &__option {
+      font-size: 14px;
+      cursor: pointer;
+      color: rgba(255, 255, 255, 0.7);
+      background: transparent !important;
+      transition: background .15s ease, color .15s ease;
+
+      &--is-focused {
+        background: rgba(255, 255, 255, 0.06) !important;
+        color: white !important;
+      }
+
+      &--is-selected {
+        background: rgba(138, 96, 245, 0.15) !important;
+        color: white !important;
+      }
+    }
   }
 
-  // --- Стили Инпутов ---
   &__input {
     --fieldInputPaddingX: 16px;
-    color: var(--color-white);
+    color: var(--color-black);
     width: 100%;
     height: 50px;
     padding-inline: var(--fieldInputPaddingX);
     background-color: transparent;
-    border: 1.5px solid var(--color-white);
+    border: 1.5px solid var(--color-black);
     border-radius: var(--border-radius);
     transition: border-color .25s ease, box-shadow .25s ease, background .25s ease;
 
@@ -242,8 +280,9 @@ $purple-light: rgba(138, 96, 245, 0.12);
     }
 
     html.is-dark-theme & {
+      color: var(--color-white);
       background: linear-gradient(90deg, transparent -10%, $purple-light 40%, rgba(12, 12, 14, 0.8) 110%);
-      border-color: var(--color-purple, var(--color-purple-2));
+      border-color: var(--color-white);
 
       &:focus {
         box-shadow: 0 0 0 3px $purple-light, 0 0 20px $purple-glow;
@@ -281,7 +320,7 @@ $purple-light: rgba(138, 96, 245, 0.12);
           color: var(--color-accent);
         }
 
-        .field__input--error~& {
+        .field__input--error ~ & {
           color: $error-color;
         }
       }
@@ -304,4 +343,7 @@ $purple-light: rgba(138, 96, 245, 0.12);
     animation: fadeIn .15s ease;
     margin-bottom: 4px;
   }
+}
+.css-hlgwow {
+  padding: 7px 1px;
 }

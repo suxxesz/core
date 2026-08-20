@@ -10,7 +10,17 @@ const options = countryList.getData().map(({ code, name }) => ({
   label: name as string,
 }))
 
-export default function CountrySelect({
+
+const selectStyles = {
+  menuPortal: (base: any) => ({ ...base, zIndex: 9999 })
+}
+
+const selectComponents = {
+  DropdownIndicator: () => null,
+  IndicatorSeparator: () => null
+}
+
+function CountrySelect({
   value,
   onChange,
   onBlur,
@@ -24,9 +34,9 @@ export default function CountrySelect({
 
   const hasError = Boolean(
     touched &&
-      errors &&
-      ((Array.isArray(errors) && errors.length > 0) ||
-        (typeof errors === 'string' && errors.length > 0))
+    errors &&
+    ((Array.isArray(errors) && errors.length > 0) ||
+      (typeof errors === 'string' && errors.length > 0))
   )
   const isSuccess = Boolean(touched && !hasError && !!value)
 
@@ -46,7 +56,11 @@ export default function CountrySelect({
 
       <ReactSelect
         options={options}
+        instanceId={"country-select-instance"}
         value={selected}
+        menuPortalTarget={document.body}
+        menuPosition="fixed"
+        styles={selectStyles}
         onChange={(option) =>
           onChange?.({
             target: { value: option?.value ?? '' },
@@ -60,8 +74,7 @@ export default function CountrySelect({
         isClearable
         placeholder=""
         classNamePrefix="country-select"
-        // Вырезаем встроенные иконки и разделители react-select:
-        components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
+        components={selectComponents}
       />
 
       {hasError && (
@@ -72,3 +85,4 @@ export default function CountrySelect({
     </div>
   )
 }
+export default React.memo(CountrySelect)

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.ts",
-    "start:bot": "node server/bot/start.js",
+    "start:bot": "node server/bot/start.ts",
     "dev": "nodemon server/server.js",
     "dev:bot": "nodemon server/bot/start.js"
   },
@@ -15,7 +15,7 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "@fastify/cors": "^11.2.0",
+    "@fastify/cors": "^11.3.0",
     "@fastify/env": "^7.0.0",
     "@sinclair/typebox": "^0.34.49",
     "@types/better-sqlite3": "^7.6.13",

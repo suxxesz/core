@@ -1,4 +1,4 @@
-import type { Session } from '../../../shared/types/form.types.js';
+import type { Session } from '../../../../server/shared/types/form.types.ts';
 
 const sessions = new Map();
 

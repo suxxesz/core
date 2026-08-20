@@ -1,7 +1,7 @@
 import React , { useMemo } from 'react'
 import { FormContext } from '@/context/FormContext'
 import useForm from '@/hooks/useForm'
-import { TFormContext } from '@/types/Form/formContext.types'
+import { TFormContext } from '@/types/form/formContext.types'
 
 export default function FormProvider({ children } : { children: React.ReactNode }) {
   const {

@@ -1,9 +1,9 @@
 import { useState, useCallback, useMemo, useEffect } from "react"
 import pushData from '@/api/data/pushData'
-import { TRules } from "@/types/Form/rules.types"
-import { Field, Fields , Rules , FieldName} from "@/types/Form/field.types"
-import { Toast } from "@/types/Form/field.types"
-import { TFormContext } from "@/types/Form/formContext.types"
+import { TRules } from "@/types/form/rules.types"
+import { Field, Fields , Rules , FieldName} from "@/types/form/field.types"
+import { Toast } from "@/types/form/field.types"
+import { TFormContext } from "@/types/form/formContext.types"
 import sendMessage from "@/api/send/sendMessage"
 
 const DRAFT_KEY : string = 'form_draft'

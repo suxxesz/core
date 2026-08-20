@@ -29,7 +29,6 @@ const useDarkTheme = () => {
 
     setTheme(prev => {
       const newTheme = !prev
-      localStorage.setItem('theme', newTheme ? 'dark-theme' : 'light-theme')
       return newTheme
     })
 

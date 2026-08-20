@@ -1,4 +1,4 @@
-import { TRules } from "@/types/Form/rules.types"
+import { TRules } from "@/types/form/rules.types"
 
 export type Field = {
   value: string
@@ -24,8 +24,5 @@ export interface IFieldProps  {
   onBlur: () => void
   errors?: string[] | string
   touched?: boolean
-<<<<<<< HEAD
-=======
   icon?: React.ReactNode
->>>>>>> 3f27d723ea07d02218001e33192d80620e63fbf0
 }
